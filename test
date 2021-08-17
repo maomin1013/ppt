@@ -1,0 +1,33 @@
+
+
+
+#include<stdio.h>
+#include<stdlib.h>
+ 
+int main()
+{
+    char b[25];
+	char filename[]="C:\\Users\\86180\\Desktop\\test.txt"; //设置输入文件的路径
+	char outfilename[]="C:\\Users\\86180\\Desktop\\test1.txt"; //设置输出文件的路径
+	int i;
+	char StrLine[1024];             //每行最大读取的字符数
+    FILE *fp,*fp_out;
+	if((fp = fopen(filename,"r")) == NULL) //判断输入文件是否存在及可读
+     { 
+         printf("error!"); 
+         return -1; 
+     } 
+	fp_out=fopen(outfilename,"w,ccs=UTF-8");  //设置写入文件
+     while (!feof(fp))   //遍历读文件的每一行
+     { 
+          fgets(StrLine,1024,fp);  //读取一行
+		  if(StrLine[0] != '	'){	//如果读取的一行数据的第一个不是空（tab），就在输出文件中写入！
+			  fputs("!",fp_out);
+		  }
+		  fputs(StrLine,fp_out);		//继续将每一行的数据写入输出文件
+          printf("%s\n", StrLine);		//控制台输出每一行的内容
+      } 
+      fclose(fp);       //关闭文件 
+	  fclose(fp_out);   //关闭文件
+      return 0; 
+}
